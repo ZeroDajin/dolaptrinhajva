@@ -24,7 +24,7 @@ public class BookController {
     private CategoryService categoryService;
     @Autowired
     private UserService userService;
-    @GetMapping("/list")
+    @GetMapping
     public String showAllBooks(Model model){
         List<Book> books = bookService.getAllBooks();
         model.addAttribute("books",books);
@@ -45,12 +45,12 @@ public class BookController {
             return "admin/book/add";
         }
         bookService.addBook(book);
-        return "redirect:/admin";
+        return "redirect:/admin/books";
     }
 
     @GetMapping("/edit/{id}")
     public String editBookForm(@PathVariable("id") Long id, Model model){
-        Book editBook = bookService.getBookById(id);
+        Optional<Book> editBook = bookService.getBookById(id);
         if (editBook!=null){
             model.addAttribute("book", editBook);
             model.addAttribute("categories", categoryService.getAllCategories());
@@ -64,10 +64,17 @@ public class BookController {
 
         bookService.updateBook(uBook);
         return "redirect:/admin/books";
+
     }
+
+
+
     @GetMapping("/delete/{id}")
     public String deleteBook(@PathVariable("id") Long id){
         bookService.deleteBook(id);
         return "redirect:/admin/books";
     }
+
+
+
 }
