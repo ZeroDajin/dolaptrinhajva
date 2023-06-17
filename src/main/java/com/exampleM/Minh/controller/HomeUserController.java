@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.exampleM.Minh.entity.Book;
 import com.exampleM.Minh.global.GlobalData;
 import com.exampleM.Minh.services.BookService;
 import com.exampleM.Minh.services.CategoryService;
@@ -42,8 +43,10 @@ public class HomeUserController {
     }
      @GetMapping("/shop/viewproduct/{id}")
     public String viewProduct(@PathVariable long id, Model model){
+        Book detail = bookService.getBookById(id);
         model.addAttribute("cartCount", GlobalData.cart.size());
-        model.addAttribute("books", bookService.getBookById(id));
+        model.addAttribute("books", detail);
+        model.addAttribute("categories", categoryService.getAllCategories());
         if(bookService.getBookById(id)==null){
             throw new NoSuchElementException("No value present");
         }

@@ -34,15 +34,15 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf().disable()
-                .authorizeHttpRequests(auth -> auth
+                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers( "/css/**", "/js/**", "/", "/register", "/error")
                         .permitAll()
-                        .requestMatchers( "/books/edit", "/books/delete")
-                        .hasAnyAuthority("ADMIN")
-                        .requestMatchers("/books", "/books/add")
-                        .hasAnyAuthority("ADMIN", "USER")
-                        .requestMatchers("/api/**")
-                        .hasAnyAuthority("ADMIN", "USER")
+                        //Cần đăng nhập ?, cái chỗ này thực sự cần được nhìn đẹp hơn nếu như JAVA đéo suck ass tới vầy
+                        .requestMatchers( "admin/**").hasAnyAuthority("ADMIN")
+
+                        //Không cần đăng nhập
+                        .requestMatchers("/", "/home").permitAll()
+                        .requestMatchers("/shop/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .logout(logout -> logout.logoutUrl("/logout")

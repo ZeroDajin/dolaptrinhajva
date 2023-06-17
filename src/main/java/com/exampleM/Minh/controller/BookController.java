@@ -31,7 +31,7 @@ public class BookController {
     private CategoryService categoryService;
     @Autowired
     private UserService userService;
-    @GetMapping
+    @GetMapping("/list")
     public String showAllBooks(Model model){
         List<Book> books = bookService.getAllBooks();
         model.addAttribute("books",books);
@@ -65,7 +65,7 @@ public class BookController {
             }
         }
         bookService.addBook(book);
-        return "redirect:/admin/books";
+        return "redirect:/admin/books/list";
     }
 
     @GetMapping("/edit/{id}")
