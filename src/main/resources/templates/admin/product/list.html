@@ -4,7 +4,7 @@
       xsi:schemaLocation="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4 ">
 <head>
   <meta charset="UTF-8">
-  <title>My Book List</title>
+  <title>My Product List</title>
   <th:block th:replace="layout :: link-css"></th:block>
 </head>
 <body>
@@ -22,18 +22,18 @@
       <th>Action</th>
       <th sec:authorize="hasAnyAuthority('ADMIN')">Action</th>
     </tr>
-    <tr th:each="book : ${books}">
-      <td th:text="${book.id}"></td>
-      <td th:text="${book.title}"></td>
-      <td th:text="${book.author}"></td>
-      <td th:text="${book.price} "></td>
+    <tr th:each="product : ${products}">
+      <td th:text="${product.id}"></td>
+      <td th:text="${product.title}"></td>
+      <td th:text="${product.author}"></td>
+      <td th:text="${product.price} "></td>
       <td>
-        <img height="120" width="150" th:src="@{/images/} + ${book.image}"/>
+        <img height="120" width="150" th:src="@{/images/} + ${product.image}"/>
       </td>
-      <td th:text="${book.category.name}"></td>
+      <td th:text="${product.category.name}"></td>
       <td sec:authorize="hasAnyAuthority('ADMIN')">
-        <a th:href="@{/admin/books/edit/{id}(id=${book.id})}">Edit </a>
-        <a th:href="@{/admin/books/delete/{id}(id=${book.id})}"
+        <a th:href="@{/admin/products/edit/{id}(id=${product.id})}">Edit </a>
+        <a th:href="@{/admin/products/delete/{id}(id=${product.id})}"
            onclick="return confirm('Are you sure?')">Delete</a>
 
       </td>
@@ -42,7 +42,7 @@
 </div>
 <script th:src="@{/js/jquery-3.6.4.min.js}"></script>
 <script th:inline="javascript">
-  function deleteBook(link){
+  function deleteProduct(link){
     if(confirm('Are you sure?')){
       $.ajax({
         url:$(link).attr('href'),
