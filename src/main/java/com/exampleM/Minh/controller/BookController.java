@@ -6,13 +6,20 @@ import com.exampleM.Minh.services.CategoryService;
 import com.exampleM.Minh.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
-import java.util.Optional;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/admin/books")
@@ -39,10 +46,23 @@ public class BookController {
     }
 
     @PostMapping("/add")
-    public String addBook(@Valid @  ModelAttribute("book") Book book,BindingResult bindingResult,Model model){
+    public String addBook(@Valid @  ModelAttribute("book") Book book, @RequestParam MultipartFile imageProduct, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
             model.addAttribute("categories",categoryService.getAllCategories());
             return "admin/book/add";
+        }
+        if(imageProduct!=null&&imageProduct.getSize()>0)
+        {
+            try{
+                File saveFile=new ClassPathResource("static/images").getFile();
+                String newImageFile= UUID.randomUUID()+".png";
+                Path path= Paths.get(saveFile.getAbsolutePath()+File.separator+newImageFile);
+                Files.copy(imageProduct.getInputStream(),path, StandardCopyOption.REPLACE_EXISTING);
+                book.setImage(newImageFile);
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
         }
         bookService.addBook(book);
         return "redirect:/admin/books";
@@ -60,8 +80,19 @@ public class BookController {
         }
     }
     @PostMapping("/edit")
-    public  String editBook( @ModelAttribute("book")Book uBook,Model model){
-
+    public  String editBook( @ModelAttribute("book")Book uBook,@RequestParam MultipartFile imageProduct,Model model){
+        if(imageProduct != null && imageProduct.getSize()>0)
+        {
+            try{
+                File saveFile = new ClassPathResource("static/images").getFile();
+                Path path=Paths.get(saveFile.getAbsolutePath() +File.separator + uBook.getImage());
+                Files.copy(imageProduct.getInputStream(), path,StandardCopyOption.REPLACE_EXISTING);
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
         bookService.updateBook(uBook);
         return "redirect:/admin/books";
 

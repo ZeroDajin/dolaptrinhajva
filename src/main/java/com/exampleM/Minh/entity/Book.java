@@ -29,7 +29,7 @@ public class Book {
     @Column(name = "price")
     @NotNull(message = "GGGGG")
     private Double price;
-
+    private String image;
 
     @ManyToOne
     @JoinColumn(name="category_id",referencedColumnName = "id")

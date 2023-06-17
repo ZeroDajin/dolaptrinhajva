@@ -41,12 +41,12 @@
                 <li class="nav-item active">
                     <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/logout}" href="#">logout</a>
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link" th:href="@{/cart}" href="#">cart</a>
-                </li>
-                <li class="nav-item active">
-                    <span class="nav-link" th:text="${cartCount}"></span>
-                </li>
+<!--                <li class="nav-item active">-->
+<!--                    <a class="nav-link" th:href="@{/cart}" href="#">cart</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item active">-->
+<!--                    <span class="nav-link" th:text="${cartCount}"></span>-->
+<!--                </li>-->
             </ul>
 
         </div>
@@ -54,15 +54,17 @@
 </nav>
 <div class="container mt-5">
     <div class="row">
-        <!-- <div class="col-sm-5 d-flex justify-content-center">
-            <img class="mt-5" height="300px" width="300px" src="" th:src="@{${'/productImages/' + product.imageName}}"
-                 alt="">
-        </div> -->
+
+        <div class="col-sm-5 d-flex justify-content-center">
+            <img height="120" width="150" th:src="@{/images/} + ${book.image}"/>
+        </div>
         <div class="col-sm-7 mt-5">
-            <h2 th:text="${book.title}"></h2>
-            <h2 th:text="${book.author}"></h2>
-            <p th:text="${book.category.name}"></p>
-            <h2>₹ <span th:text="${book.price}"></span></h2>
+            <h2 th:text="${books.id}"></h2>
+            <h2 th:text="${books.title}"></h2>
+            <p th:text="${books.category.name}"></p>
+            <p th:text="${books.author}"></p>
+            <h2>₹ <span th:text="${books.price}"></span></h2>
+
             <!-- <h5>Weight:
                 <spna th:text="${product.weight}"></spna> grams.
             </h5> -->
