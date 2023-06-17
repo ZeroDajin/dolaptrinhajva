@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thyneleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <th:block th:replace="layout :: link-css"></th:block>
+  <title>edit category</title>
+</head>
+<body>
+<th:block th:replace="layout :: header"></th:block>
+<div class="container">
+  <h1>edit category</h1>
+  <form th:action="@{/admin/categories/edit}" th:object="${category}" method="post">
+    <input type="hidden" th:field="*{id}">
+    <div class="col-6 mb-3">
+      <label class="form-label" for="name">Title:</label>
+      <input class="form-control" type="text" th:field="*{name}" id="name">
+    </div>
+
+
+    <input type="submit"  value="Save">
+  </form>
+  <br>
+  <a th:href="@{/admin/categories}">Back to List</a>
+</div>
+<th:block th:replace="layout :: footer" ></th:block>
+</body>
+</html>
