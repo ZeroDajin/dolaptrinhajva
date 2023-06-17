@@ -54,6 +54,7 @@
 </nav>
 <div class="container mt-5">
     <div class="row">
+
         <div class="col-sm-5 d-flex justify-content-center">
             <img height="120" width="150" th:src="@{/images/} + ${book.image}"/>
         </div>
@@ -63,11 +64,12 @@
             <p th:text="${books.category.name}"></p>
             <p th:text="${books.author}"></p>
             <h2>₹ <span th:text="${books.price}"></span></h2>
+
             <!-- <h5>Weight:
                 <spna th:text="${product.weight}"></spna> grams.
             </h5> -->
             <!-- <p th:text="${product.description}"></p> -->
-            <a href="" th:href="@{/addToCart/{id}(id = ${books.id})}" class="btn btn-primary">Add to cart</a>
+            <a href="" th:href="@{/addToCart/{id}(id = ${book.id})}" class="btn btn-primary">Add to cart</a>
         </div>
     </div>
 </div>
