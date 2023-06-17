@@ -1,7 +1,7 @@
 package com.exampleM.Minh.controller;
 
-import com.exampleM.Minh.entity.Book;
-import com.exampleM.Minh.services.BookService;
+import com.exampleM.Minh.entity.Product;
+import com.exampleM.Minh.services.ProductService;
 import com.exampleM.Minh.services.CategoryService;
 import com.exampleM.Minh.services.UserService;
 import jakarta.validation.Valid;
@@ -22,34 +22,34 @@ import java.util.List;
 import java.util.UUID;
 
 @Controller
-@RequestMapping("/admin/books")
+@RequestMapping("/admin/products")
 
-public class BookController {
+public class ProductController {
     @Autowired
-    private BookService bookService;
+    private ProductService productService;
     @Autowired
     private CategoryService categoryService;
     @Autowired
     private UserService userService;
-    @GetMapping
-    public String showAllBooks(Model model){
-        List<Book> books = bookService.getAllBooks();
-        model.addAttribute("books",books);
-        return "admin/book/list";
+    @GetMapping("/list")
+    public String showAllproducts(Model model){
+        List<Product> products = productService.getAllProducts();
+        model.addAttribute("products",products);
+        return "admin/product/list";
     }
     @GetMapping("/add")
-    public String addBookForm(Model model){
-        model.addAttribute("book", new Book());
+    public String addproductForm(Model model){
+        model.addAttribute("product", new Product());
         model.addAttribute("categories", categoryService.getAllCategories());
         model.addAttribute("users", userService.getClass());
-        return "admin/book/add";
+        return "admin/product/add";
     }
 
     @PostMapping("/add")
-    public String addBook(@Valid @  ModelAttribute("book") Book book, @RequestParam MultipartFile imageProduct, BindingResult bindingResult, Model model){
+    public String addproduct(@Valid @  ModelAttribute("product") Product product, @RequestParam MultipartFile imageProduct, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
             model.addAttribute("categories",categoryService.getAllCategories());
-            return "admin/book/add";
+            return "admin/product/add";
         }
         if(imageProduct!=null&&imageProduct.getSize()>0)
         {
@@ -58,34 +58,34 @@ public class BookController {
                 String newImageFile= UUID.randomUUID()+".png";
                 Path path= Paths.get(saveFile.getAbsolutePath()+File.separator+newImageFile);
                 Files.copy(imageProduct.getInputStream(),path, StandardCopyOption.REPLACE_EXISTING);
-                book.setImage(newImageFile);
+                product.setImage(newImageFile);
             }
             catch (Exception e){
                 e.printStackTrace();
             }
         }
-        bookService.addBook(book);
-        return "redirect:/admin/books";
+        productService.addProduct(product);
+        return "redirect:/admin/products/list";
     }
 
     @GetMapping("/edit/{id}")
-    public String editBookForm(@PathVariable("id") Long id, Model model){
-        Optional<Book> editBook = bookService.getBookById(id);
-        if (editBook!=null){
-            model.addAttribute("book", editBook);
+    public String editproductForm(@PathVariable("id") Long id, Model model){
+        Product editproduct = productService.getProductById(id);
+        if (editproduct!=null){
+            model.addAttribute("product", editproduct);
             model.addAttribute("categories", categoryService.getAllCategories());
-            return "admin/book/edit";
+            return "admin/product/edit";
         } else {
             return "not-found";
         }
     }
     @PostMapping("/edit")
-    public  String editBook( @ModelAttribute("book")Book uBook,@RequestParam MultipartFile imageProduct,Model model){
+    public  String editproduct( @ModelAttribute("product")Product uproduct,@RequestParam MultipartFile imageProduct,Model model){
         if(imageProduct != null && imageProduct.getSize()>0)
         {
             try{
                 File saveFile = new ClassPathResource("static/images").getFile();
-                Path path=Paths.get(saveFile.getAbsolutePath() +File.separator + uBook.getImage());
+                Path path=Paths.get(saveFile.getAbsolutePath() +File.separator + uproduct.getImage());
                 Files.copy(imageProduct.getInputStream(), path,StandardCopyOption.REPLACE_EXISTING);
             }
             catch (Exception e)
@@ -93,17 +93,17 @@ public class BookController {
                 e.printStackTrace();
             }
         }
-        bookService.updateBook(uBook);
-        return "redirect:/admin/books";
+        productService.updateProduct(uproduct);
+        return "redirect:/admin/products";
 
     }
 
 
 
     @GetMapping("/delete/{id}")
-    public String deleteBook(@PathVariable("id") Long id){
-        bookService.deleteBook(id);
-        return "redirect:/admin/books";
+    public String deleteproduct(@PathVariable("id") Long id){
+        productService.deleteProduct(id);
+        return "redirect:/admin/products";
     }
 
 
