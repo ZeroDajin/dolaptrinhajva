@@ -37,12 +37,12 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers( "/css/**", "/js/**", "/", "/register", "/error")
                         .permitAll()
-                        //Cần đăng nhập ?, cái chỗ này thực sự cần được nhìn đẹp hơn nếu như JAVA đéo suck ass tới vầy
-                        .requestMatchers( "admin/**").hasAnyAuthority("ADMIN")
-                        
-                        //Không cần đăng nhập
-                        .requestMatchers("/", "/home").permitAll()
-                        .requestMatchers("/shop/**").permitAll()
+                        .requestMatchers( "/books/edit", "/books/delete")
+                        .hasAnyAuthority("ADMIN")
+                        .requestMatchers("/books", "/books/add")
+                        .hasAnyAuthority("ADMIN", "USER")
+                        .requestMatchers("/api/**")
+                        .hasAnyAuthority("ADMIN", "USER")
                         .anyRequest().authenticated()
                 )
                 .logout(logout -> logout.logoutUrl("/logout")
