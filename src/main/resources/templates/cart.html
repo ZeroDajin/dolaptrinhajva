@@ -43,7 +43,7 @@
                     <a class="nav-link" th:href="@{/cart}" href="#">cart</a>
                 </li>
                 <li class="nav-item active">
-                    <span class="nav-link" th:text="${cartCount}">0</span>
+                    <span class="nav-link" th:text="${cartCount}"></span>
                 </li>
             </ul>
 
@@ -66,14 +66,14 @@
                     <div class="card wish-list mb-4">
                         <div class="card-body">
 
-                            <h5 class="mb-4">Cart (<span th:text="${cartCount}">2</span> items)</h5>
+                            <h5 class="mb-4">Cart (<span th:text="${cartCount}"></span> items)</h5>
 
-                            <div class="row mb-4" th:each="item, iStat : ${cart}">
+                            <div class="row mb-4" th:each="item , iStat : ${cart}">
                                 <div class="col-md-5 col-lg-3 col-xl-3">
                                     <div class="mb-3 mb-md-0">
-                                        <!-- <img class="img-fluid w-100"
-                                             th:src="@{${'/productImages/' + item.imageName}}"
-                                             src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12a.jpg" alt="Sample"> -->
+                                        <img class="img-fluid w-100"
+                                             th:src="@{/images/} + ${item.image}"
+                                             src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12a.jpg" alt="Sample">
 
                                     </div>
                                 </div>
@@ -81,9 +81,9 @@
                                     <div>
                                         <div class="d-flex justify-content-between">
                                             <div>
-                                                <h5 th:text="${item.name}">Blue denim shirt</h5>
-                                                <p class="mb-3 text-uppercase small">Weight: <span th:text="${item.weight}"></span> grams</p>
-<!--                                                <p class="mb-2 text-uppercase small">Category: <span th:text="${item.category.name}"></span></p>-->
+                                                <h5 th:text="${item.title}"></h5>
+                                                <!-- <p class="mb-3 text-uppercase small">Quantity <span th:text="${item.Quantity}"></span> </p> -->
+                                               <p class="mb-2 text-uppercase small">Category: <span th:text="${item.category.name}"></span></p>
 
                                             </div>
 
