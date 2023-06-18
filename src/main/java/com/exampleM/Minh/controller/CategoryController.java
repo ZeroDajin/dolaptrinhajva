@@ -1,6 +1,5 @@
 package com.exampleM.Minh.controller;
 
-import com.exampleM.Minh.entity.Book;
 import com.exampleM.Minh.entity.Category;
 import com.exampleM.Minh.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,7 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
     @GetMapping
-    public String showAllBooks(Model model){
+    public String showAllProducts(Model model){
         List<Category> categories = categoryService.getAllCategories();
         model.addAttribute("categories",categories);
         return "admin/category/list";
@@ -29,7 +28,7 @@ public class CategoryController {
     }
 
     @PostMapping("/add")
-    public String addCategory(@ModelAttribute("book") Category category){
+    public String addCategory(@ModelAttribute("product") Category category){
         categoryService.addCategory(category);
         return "redirect:/admin/categories";
     }
@@ -45,7 +44,7 @@ public class CategoryController {
         }
     }
     @PostMapping("/edit")
-    public  String editCategory( @ModelAttribute("book")Category uCategory,Model model){
+    public  String editCategory( @ModelAttribute("product")Category uCategory,Model model){
 
         categoryService.updateCategory(uCategory);
         return "redirect:/admin/categories";

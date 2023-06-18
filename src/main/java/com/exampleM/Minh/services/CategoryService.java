@@ -1,6 +1,5 @@
 package com.exampleM.Minh.services;
 
-import com.exampleM.Minh.entity.Book;
 import com.exampleM.Minh.entity.Category;
 import com.exampleM.Minh.repository.ICategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
