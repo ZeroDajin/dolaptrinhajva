@@ -56,7 +56,7 @@
     <div class="row">
 
         <div class="col-sm-5 d-flex justify-content-center">
-            <img height="120" width="150" th:src="@{/images/} + ${book.image}"/>
+            <img height="120" width="150" th:src="@{/images/} + ${books.image}"/>
         </div>
         <div class="col-sm-7 mt-5">
             <h2 th:text="${books.id}"></h2>
@@ -69,7 +69,7 @@
                 <spna th:text="${product.weight}"></spna> grams.
             </h5> -->
             <!-- <p th:text="${product.description}"></p> -->
-            <a href="" th:href="@{/addToCart/{id}(id = ${book.id})}" class="btn btn-primary">Add to cart</a>
+            <a href="" th:href="@{/addToCart/{id}(id = ${books.id})}" class="btn btn-primary">Add to cart</a>
         </div>
     </div>
 </div>

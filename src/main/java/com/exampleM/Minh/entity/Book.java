@@ -29,6 +29,7 @@ public class Book {
     @Column(name = "price")
     @NotNull(message = "GGGGG")
     private Double price;
+    @Column(name = "image")
     private String image;
 
     @ManyToOne

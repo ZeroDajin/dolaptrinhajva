@@ -70,7 +70,7 @@ public class BookController {
 
     @GetMapping("/edit/{id}")
     public String editBookForm(@PathVariable("id") Long id, Model model){
-        Optional<Book> editBook = bookService.getBookById(id);
+        Book editBook = bookService.getBookById(id);
         if (editBook!=null){
             model.addAttribute("book", editBook);
             model.addAttribute("categories", categoryService.getAllCategories());
