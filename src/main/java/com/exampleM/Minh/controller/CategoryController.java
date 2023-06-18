@@ -38,7 +38,7 @@ public class CategoryController {
         if (editCategory!=null){
             model.addAttribute("category", editCategory);
 
-            return "admincategory/edit";
+            return "admin/category/edit";
         } else {
             return "not-found";
         }
