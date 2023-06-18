@@ -69,6 +69,7 @@ public class ProductController {
     }
 
     @GetMapping("/edit/{id}")
+
     public String editproductForm(@PathVariable("id") Long id, Model model){
         Product editproduct = productService.getProductById(id);
         if (editproduct!=null){
@@ -94,7 +95,7 @@ public class ProductController {
             }
         }
         productService.updateProduct(uproduct);
-        return "redirect:/admin/products";
+        return "redirect:/admin/products/list";
 
     }
 
