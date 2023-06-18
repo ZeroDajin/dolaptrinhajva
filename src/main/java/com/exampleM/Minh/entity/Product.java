@@ -24,8 +24,7 @@ public class Product {
     @NotEmpty(message = "not empty")
     @Size(max = 50,min =1,message = "ZZZZZZ")
     private String title;
-    @Column(name="author")
-    private String author;
+    
     @Column(name = "price")
     @NotNull(message = "GGGGG")
     private Double price;

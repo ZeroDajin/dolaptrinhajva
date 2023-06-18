@@ -16,10 +16,7 @@
             <input class="form-control" type="text" th:field="*{title}" id="title">
         </div>
 
-        <div class="col-6 mb-3">
-            <label class="form-label" for="author">Author:</label>
-            <input class="form-control" type="text" th:field="*{author}" id="author">
-        </div>
+        
 
 
         <div class="col-6 mb-3">
@@ -45,7 +42,7 @@
         <input type="submit"  value="Save">
     </form>
     <br>
-    <a th:href="@{/admin/products}">Back to List</a>
+    <a th:href="@{/admin/products/list}">Back to List</a>
 </div>
 <th:block th:replace="layout :: footer" ></th:block>
 </body>
