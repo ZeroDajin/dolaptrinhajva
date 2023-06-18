@@ -22,12 +22,6 @@ public class CartController {
         model.addAttribute("cart", GlobalData.cart);
         return "cart";
     }//page cart
-        @GetMapping("/trong")
-    public String trongGet(Model model){
-
-        model.addAttribute("products", GlobalData.cart);
-        return "trong";
-    }//page cart
 
     @GetMapping("/addToCart/{id}")
     public String addToCart(@PathVariable("id") Long id){
