@@ -45,7 +45,7 @@ public class HomeUserController {
         
         model.addAttribute("cartCount", GlobalData.cart.size());       
         model.addAttribute("categories", categoryService.getAllCategories());
-        model.addAttribute("products", productService.getProductById(id));
+        model.addAttribute("products", productService.getProductById(id).get());
         if(productService.getProductById(id)==null){
             throw new NoSuchElementException("No value present");
         }

@@ -24,13 +24,13 @@ public class CartController {
     }//page cart
 
     @GetMapping("/addToCart/{id}")
-    public String addToCart(@PathVariable long id){
-        GlobalData.cart.add(productService.getProductById(id));
+    public String addToCart(@PathVariable("id") Long id){
+        GlobalData.cart.add(productService.getProductById(id).get());
         return "redirect:/shop";
     }//click add from page viewProduct
 
     @GetMapping("/cart/removeItem/{index}")
-    public String cartItemRemove(@PathVariable int index){
+    public String cartItemRemove(@PathVariable Long index){
         GlobalData.cart.remove(index);
         return "redirect:/cart";
     } // delete 1 product
