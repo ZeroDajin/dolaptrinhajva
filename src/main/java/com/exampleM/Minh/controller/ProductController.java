@@ -69,7 +69,6 @@ public class ProductController {
     }
 
     @GetMapping("/edit/{id}")
-
     public String editproductForm(@PathVariable("id") Long id, Model model){
         Product editproduct = productService.getProductById(id).get();
         if (editproduct!=null){
@@ -82,19 +81,25 @@ public class ProductController {
     }
     @PostMapping("/edit")
     public  String editproduct( @ModelAttribute("product")Product uproduct,@RequestParam MultipartFile imageProduct,Model model){
+        
         if(imageProduct != null && imageProduct.getSize()>0)
         {
             try{
-                File saveFile = new ClassPathResource("static/images").getFile();
-                Path path=Paths.get(saveFile.getAbsolutePath() +File.separator + uproduct.getImage());
-                Files.copy(imageProduct.getInputStream(), path,StandardCopyOption.REPLACE_EXISTING);
+                File saveFile=new ClassPathResource("static/images").getFile();
+                String newImageFile= UUID.randomUUID()+".png";
+                Path path= Paths.get(saveFile.getAbsolutePath()+File.separator+newImageFile);
+                Files.copy(imageProduct.getInputStream(),path, StandardCopyOption.REPLACE_EXISTING);
+                uproduct.setImage(newImageFile);
+                
+                
             }
             catch (Exception e)
             {
                 e.printStackTrace();
             }
+            productService.updateProduct(uproduct);
         }
-        productService.updateProduct(uproduct);
+        
         return "redirect:/admin/products/list";
 
     }
@@ -104,7 +109,7 @@ public class ProductController {
     @GetMapping("/delete/{id}")
     public String deleteproduct(@PathVariable("id") Long id){
         productService.deleteProduct(id);
-        return "redirect:/admin/products";
+        return "redirect:/admin/products/list";
     }
 
 
