@@ -40,14 +40,16 @@ public class CartController {
     @GetMapping("/cart")
     public String cartGet(Model model){
         Double sum = 0.0;
+        Double sumQuantity =0.0;
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         Order findDebt = orderService.GetPendingOrder(currentPrincipalName);
         
         for (OrderDetail find : orderDetailService.getAllOrderDetailByOrderId(findDebt.getId())) {
             sum += find.getPrice() * find.getQuantity();
+            sumQuantity+=find.getQuantity();
         }
-        model.addAttribute("cartCount",orderDetailService.getAllOrderDetailByOrderId(findDebt.getId()).size());
+        model.addAttribute("cartCount",sumQuantity);
         model.addAttribute("total",sum);
         model.addAttribute("cart",orderDetailService.getAllOrderDetailByOrderId(findDebt.getId()));
         return "cart";
@@ -66,6 +68,7 @@ public class CartController {
             if(checker.getProductid()==id)
             {
                 checker.setQuantity(checker.getQuantity()+1);
+                orderDetailService.updateOrderDetail(checker);
                 break;
             }
             else

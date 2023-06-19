@@ -29,7 +29,7 @@ public class OrderDetail{
     private String image;
     @Column(name = "quantity")
     @NotNull(message = "Số lượng không được null")
-    private long Quantity;
+    private Integer Quantity;
     @Column(name = "sum")
     @NotNull(message = "tính tiền không được null")
     private Double Sum;
