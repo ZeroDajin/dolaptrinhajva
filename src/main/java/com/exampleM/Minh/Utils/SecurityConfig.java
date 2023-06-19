@@ -37,7 +37,7 @@ public class SecurityConfig {
                  .authorizeHttpRequests(auth -> auth
                         .requestMatchers( "/css/**", "/js/**", "/", "/register", "/error","/login")
                         .permitAll()
-                        //Cần đăng nhập ?, cái chỗ này thực sự cần được nhìn đẹp hơn nếu như JAVA đéo suck ass tới vầy
+                        //Cần đăng nhập
                         .requestMatchers( "admin/**").hasAnyAuthority("ADMIN")
 
                         //Không cần đăng nhập
@@ -55,7 +55,7 @@ public class SecurityConfig {
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login")
                         .loginProcessingUrl("/login")
-                        .defaultSuccessUrl("/")
+                        .defaultSuccessUrl("/",true)    
                         .permitAll()
                 )
                 .rememberMe(rememberMe -> rememberMe.key("uniqueAndSecret")
