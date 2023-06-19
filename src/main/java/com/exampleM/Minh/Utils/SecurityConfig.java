@@ -35,7 +35,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf().disable()
                  .authorizeHttpRequests(auth -> auth
-                        .requestMatchers( "/css/**", "/js/**", "/", "/register", "/error","/login")
+                        .requestMatchers( "/css/**", "/js/**", "/", "/register", "/error","/login","/images/**")
                         .permitAll()
                         //Cần đăng nhập
                         .requestMatchers( "admin/**").hasAnyAuthority("ADMIN")
