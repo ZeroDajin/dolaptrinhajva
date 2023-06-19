@@ -35,9 +35,4 @@ public class Product {
     @JoinColumn(name="category_id",referencedColumnName = "id")
     @ValidCategoryId
     private Category category;
-
-    @ManyToOne
-    @JoinColumn(name="user_id",referencedColumnName = "id")
-    @ValidUserId
-    private User user;
 }

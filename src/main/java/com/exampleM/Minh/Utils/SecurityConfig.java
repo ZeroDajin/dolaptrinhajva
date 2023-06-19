@@ -35,14 +35,15 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf().disable()
                  .authorizeHttpRequests(auth -> auth
-                        .requestMatchers( "/css/**", "/js/**", "/", "/register", "/error")
+                        .requestMatchers( "/css/**", "/js/**", "/", "/register", "/error","/login")
                         .permitAll()
-                        //Cần đăng nhập ?, cái chỗ này thực sự cần được nhìn đẹp hơn nếu như JAVA đéo suck ass tới vầy
+                        //Cần đăng nhập
                         .requestMatchers( "admin/**").hasAnyAuthority("ADMIN")
-
+                        .requestMatchers("/cart").authenticated()
                         //Không cần đăng nhập
                         .requestMatchers("/", "/home").permitAll()
                         .requestMatchers("/shop/**").permitAll()
+                        
                         .anyRequest().authenticated()
                 )
                 .logout(logout -> logout.logoutUrl("/logout")
@@ -55,7 +56,7 @@ public class SecurityConfig {
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login")
                         .loginProcessingUrl("/login")
-                        .defaultSuccessUrl("/")
+                        .defaultSuccessUrl("/",true)    
                         .permitAll()
                 )
                 .rememberMe(rememberMe -> rememberMe.key("uniqueAndSecret")

@@ -30,4 +30,12 @@ public class UserService {
         Optional<User> optional = userRepository.findById(id);
         return optional.orElse(null);
     }
+    public User GetThatDebtByUsername(String username)
+    {
+        return userRepository.findByUsername(username);
+    }
+    public User FindUserByUsername(String username)
+    {
+        return userRepository.findByUsername(username);
+    }
 }
