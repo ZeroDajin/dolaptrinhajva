@@ -79,6 +79,7 @@ public class ProductController {
             return "not-found";
         }
     }
+
     @PostMapping("/edit")
     public  String editproduct( @ModelAttribute("product")Product uproduct,@RequestParam MultipartFile imageProduct,Model model){
         
@@ -111,7 +112,5 @@ public class ProductController {
         productService.deleteProduct(id);
         return "redirect:/admin/products/list";
     }
-
-
 
 }
