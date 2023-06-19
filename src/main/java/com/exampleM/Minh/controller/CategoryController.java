@@ -2,9 +2,13 @@ package com.exampleM.Minh.controller;
 
 import com.exampleM.Minh.entity.Category;
 import com.exampleM.Minh.services.CategoryService;
+
+import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,13 +36,15 @@ public class CategoryController {
         categoryService.addCategory(category);
         return "redirect:/admin/categories";
     }
+
     @GetMapping("/edit/{id}")
     public String editCategoryForm(@PathVariable("id") Long id, Model model){
         Category editCategory = categoryService.getCategoryById(id);
         if (editCategory!=null){
             model.addAttribute("category", editCategory);
 
-            return "admincategory/edit";
+            return "admin/category/edit";
+
         } else {
             return "not-found";
         }
@@ -50,6 +56,7 @@ public class CategoryController {
         return "redirect:/admin/categories";
 
     }
+    
     @GetMapping("/delete/{id}")
     public String deleteCategory(@PathVariable("id") Long id){
         categoryService.deleteCategory(id);
