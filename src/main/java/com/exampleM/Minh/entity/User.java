@@ -48,5 +48,5 @@ public class User {
     private Set<Role>roles=new HashSet<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Product> products = new ArrayList<>();
+    private List<Order> orders;
 }

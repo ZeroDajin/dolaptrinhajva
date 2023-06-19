@@ -14,7 +14,7 @@ public interface IUserRepository extends JpaRepository<User,Long> {
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO user_role (user_id,role_id) " + "VALUES (?1,?2)",nativeQuery = true)
+    @Query(value = "INSERT INTO user_role (user_id,role_id) " + "VALUES (?1,?2)",nativeQuery = true) // cẩn thận dấu cách sau role_id)
     void addRoleToUser (Long UserId,Long RoleId);
     @Query("SELECT u.id FROM User u WHERE u.username=?1")
     Long getUserIByUsername(String username);
