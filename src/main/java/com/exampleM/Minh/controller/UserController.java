@@ -1,6 +1,7 @@
 package com.exampleM.Minh.controller;
 
 import com.exampleM.Minh.entity.User;
+import com.exampleM.Minh.services.RoleService;
 import com.exampleM.Minh.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 
@@ -17,6 +19,9 @@ import org.springframework.web.bind.annotation.PostMapping;
     public class UserController {
         @Autowired
         private UserService userService;
+        // @Autowired
+        // private RoleService roleService;
+    
         @GetMapping("/login")
         public String login() {
             return "user/login";
@@ -38,4 +43,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 
             return "redirect:/login";
         }
+        // @GetMapping("/edit/{id}")
+        // public String editUserForm(@PathVariable("id") Long id,Model model){
+        //     User editUser=userService.getuserById(id);
+        //     if (editUser!=null){
+        //         model.addAttribute("user", editUser);
+        //         model.addAttribute("Role", roleService.getAllRoles() );
+    
+        //         return "user/edit";
+        //     } else {
+        //         return "not-found";
+        //     }
+        // }
     }
