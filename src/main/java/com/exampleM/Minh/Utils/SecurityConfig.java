@@ -39,10 +39,11 @@ public class SecurityConfig {
                         .permitAll()
                         //Cần đăng nhập
                         .requestMatchers( "admin/**").hasAnyAuthority("ADMIN")
-
+                        .requestMatchers("/cart").authenticated()
                         //Không cần đăng nhập
                         .requestMatchers("/", "/home").permitAll()
                         .requestMatchers("/shop/**").permitAll()
+                        
                         .anyRequest().authenticated()
                 )
                 .logout(logout -> logout.logoutUrl("/logout")

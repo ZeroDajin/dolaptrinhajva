@@ -24,4 +24,12 @@ public class UserService {
         }
 
     }
+    public User GetThatDebtByUsername(String username)
+    {
+        return userRepository.findByUsername(username);
+    }
+    public User FindUserByUsername(String username)
+    {
+        return userRepository.findByUsername(username);
+    }
 }

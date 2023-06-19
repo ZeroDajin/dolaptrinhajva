@@ -46,7 +46,7 @@ public class ProductController {
     }
 
     @PostMapping("/add")
-    public String addproduct(@Valid @  ModelAttribute("product") Product product, @RequestParam MultipartFile imageProduct, BindingResult bindingResult, Model model){
+    public String addproduct(@Valid @ModelAttribute("product") Product product, @RequestParam MultipartFile imageProduct, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
             model.addAttribute("categories",categoryService.getAllCategories());
             return "admin/product/add";
