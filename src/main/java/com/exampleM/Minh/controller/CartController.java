@@ -58,9 +58,9 @@ public class CartController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         Order findDebt = orderService.GetPendingOrder(currentPrincipalName);
+        Product Ptemp = productService.getProductById(id).get();
         if(findDebt !=null)
         {
-            Product Ptemp = productService.getProductById(id).get();
         for (OrderDetail checker : orderDetailService.getAllOrderDetailByOrderId(findDebt.getId()))
         {
             if(checker.getProductid()==id)
@@ -71,7 +71,7 @@ public class CartController {
             else
             {
                 OrderDetail ODtemp = new OrderDetail();
-                ODtemp.setCategory(Ptemp.getCategory());
+                //ODtemp.setCategory(Ptemp.getCategory());
                 ODtemp.setOrder(findDebt);
                 ODtemp.setImage(Ptemp.getImage());
                 ODtemp.setPrice(Ptemp.getPrice());
@@ -90,6 +90,16 @@ public class CartController {
             createDebt.setUser(userService.FindUserByUsername(currentPrincipalName));
             createDebt.setStatus(0);
             orderService.addOrder(createDebt);
+            OrderDetail ODtemp = new OrderDetail();
+                //ODtemp.setCategory(Ptemp.getCategory());
+                ODtemp.setOrder(createDebt);
+                ODtemp.setImage(Ptemp.getImage());
+                ODtemp.setPrice(Ptemp.getPrice());
+                ODtemp.setProductid(id);
+                ODtemp.setTitle(Ptemp.getTitle());
+                ODtemp.setQuantity(1);
+                ODtemp.setSum(ODtemp.getPrice()*ODtemp.getQuantity());
+                orderDetailService.addOrderDetail(ODtemp);
         }
         return "redirect:/shop";
     }//click add from page viewProduct

@@ -16,7 +16,7 @@ public class OrderDetail{
     @ManyToOne
     @JoinColumn(name="order_id",referencedColumnName = "id")
     private Order order;
-    @Column(name="Productid")
+    @Column(name="productid")
     private Long Productid;
     @Column(name = "title")
     @NotEmpty(message = "not empty")
@@ -27,9 +27,6 @@ public class OrderDetail{
     private Double Price;
     @Column(name = "image")
     private String image;
-    @Column(name = "category")
-    @NotNull(message = "category không hợp lệ")
-    private Category category;
     @Column(name = "quantity")
     @NotNull(message = "Số lượng không được null")
     private long Quantity;

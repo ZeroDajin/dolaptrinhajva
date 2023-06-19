@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IOrderRepository extends JpaRepository<Order,Long> {
-    @Query("SELECT * FROM order WHERE status=0 AND user_id=?1")
+    @Query(value ="SELECT * FROM orders WHERE status=0 AND user_id=?1",nativeQuery = true)
     Order FindByStatusAndUserId(Long user_id);
 }

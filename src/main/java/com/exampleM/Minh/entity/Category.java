@@ -14,6 +14,6 @@ public class Category {
     private Long id;
     @Column(name="name")
     private String name;
-        @OneToMany(mappedBy = "category",cascade = CascadeType.ALL)
-        private List<Product> products;
+    @OneToMany(mappedBy = "category",cascade = CascadeType.ALL)
+    private List<Product> products;
 }
