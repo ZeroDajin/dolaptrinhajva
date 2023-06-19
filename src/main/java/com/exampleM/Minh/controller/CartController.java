@@ -30,7 +30,7 @@ public class CartController {
     }//click add from page viewProduct
 
     @GetMapping("/cart/removeItem/{index}")
-    public String cartItemRemove(@PathVariable Long index){
+    public String cartItemRemove(@PathVariable int index){
         GlobalData.cart.remove(index);
         return "redirect:/cart";
     } // delete 1 product
