@@ -14,7 +14,7 @@ public class OrderService {
     private IOrderRepository orderRepository;
     @Autowired
     private UserService userService;
-    public List<Order> getAllCategories() { return orderRepository.findAll(); }
+    public List<Order> getAllOrders() { return orderRepository.findAll(); }
     public  Order getOrderById(Long id){
         Optional<Order> optionalOrder = orderRepository.findById(id);
         if (optionalOrder.isPresent()){
